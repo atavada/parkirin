@@ -1,10 +1,11 @@
-import { SignInForm } from '@/components/SignInForm'
-import React from 'react'
+import { SignInForm } from "@/components/jukir-auth/SignInForm";
+import React from "react";
+import Image from "next/image";
 
-function page() {
-  return (
-    <div className="flex justify-center items-center min-h-screen">
-        {/* <div className="bg-primary rounded-md p-5">
+export default function Page() {
+	return (
+		<div className="flex justify-center items-center min-h-screen">
+			{/* <div className="bg-primary rounded-md p-5">
             <h1 className='text-white text-center font-bold text-2xl md:text-4xl mb-10'>
                 Sign In
             </h1>
@@ -22,9 +23,19 @@ function page() {
                 </button>
             </div>
         </div> */}
-        <SignInForm />
-    </div>
-  )
-}
 
-export default page
+			<div className="space-y-6 p-4">
+				<div className="rounded-xl shadow">
+					<Image
+						alt="banner"
+						className="h-40 w-full rounded-xl mx-auto"
+						height="550"
+						src="/dummy-image.jpg"
+						width="550"
+					/>
+				</div>
+				<SignInForm />
+			</div>
+		</div>
+	);
+}
