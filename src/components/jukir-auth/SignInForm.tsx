@@ -43,25 +43,23 @@ export const SignInForm = () => {
 			const resData = await res.json();
 
 			if (!res.ok) {
-				if (!res.ok) {
-					toast({
-						variant: "destructive",
-						title: "Login Gagal",
-						description: "Nomor telepon atau password salah",
-					});
-				} else {
-					const token = resData.data;
-					setToken(token);
+				toast({
+					variant: "destructive",
+					title: "Login Gagal",
+					description: "Nomor telepon atau password salah",
+				});
+			} else {
+				const token = resData.data;
+				setToken(token);
 
-					toast({
-						title: "Login Berhasil",
-						description: "Anda akan dialihkan ke halaman juru parkir",
-					});
+				toast({
+					title: "Login Berhasil",
+					description: "Anda akan dialihkan ke halaman juru parkir",
+				});
 
-					setTimeout(() => {
-						router.push("/jukir");
-					}, 1500);
-				}
+				setTimeout(() => {
+					router.push("/jukir");
+				}, 1500);
 			}
 		} catch (error) {
 			toast({
