@@ -136,7 +136,7 @@ export const SignUpForm = () => {
 
 							<div className="mt-4 text-end text-sm">
 								Sudah memiliki akun?{" "}
-								<Link href="/jukir/sign-in" className="underline">
+								<Link href="/sign-in" className="underline">
 									Sign in
 								</Link>
 							</div>
@@ -145,7 +145,7 @@ export const SignUpForm = () => {
 								<ButtonLoading className="ml-auto w-full" />
 							) : (
 								<Button disabled={isLoading} type="submit" className="ml-auto w-full">
-									Masuk
+									Daftar
 								</Button>
 							)}
 						</form>
