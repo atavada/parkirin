@@ -101,7 +101,7 @@ export const Navbar = () => {
 						<NavigationMenuItem>
 							<div className="hidden md:flex gap-2">
 								<Link
-									href="/dashboard"
+									href="/sign-up"
 									className={buttonVariants({
 										variant: "outline",
 										className: "font-semibold text-gray-500 border-gray-500 rounded-full",
