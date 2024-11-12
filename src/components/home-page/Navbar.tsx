@@ -6,6 +6,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { buttonVariants } from "@/components/ui/button";
 import { MapPin, Menu } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 interface RouteProps {
 	href: string;
@@ -29,6 +30,7 @@ const routeList: RouteProps[] = [
 
 export const Navbar = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const { token } = useAuth();
 
 	return (
 		<>
@@ -100,15 +102,40 @@ export const Navbar = () => {
 						</NavigationMenuItem>
 						<NavigationMenuItem>
 							<div className="hidden md:flex gap-2">
-								<Link
-									href="/dashboard"
-									className={buttonVariants({
-										variant: "outline",
-										className: "font-semibold text-gray-500 border-gray-500 rounded-full",
-									})}
-								>
-									Sign Up
-								</Link>
+								{!token ? (
+									<>
+										<Link
+											href="/sign-in"
+											className={buttonVariants({
+												variant: "ghost",
+												className: "font-semibold",
+											})}
+										>
+											Sign in Jukir
+										</Link>
+										<Link
+											href="/sign-up"
+											className={buttonVariants({
+												variant: "outline",
+												className: "font-semibold text-black",
+											})}
+										>
+											Sign in Mitra
+										</Link>
+									</>
+								) : (
+									<>
+										<Link
+											href="/dashboard"
+											className={buttonVariants({
+												variant: "outline",
+												className: "font-semibold text-gray-500 border-gray-500 rounded-full",
+											})}
+										>
+											Dashboard
+										</Link>
+									</>
+								)}
 							</div>
 						</NavigationMenuItem>
 					</NavigationMenuList>
