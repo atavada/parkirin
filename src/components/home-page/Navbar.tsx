@@ -105,7 +105,7 @@ export const Navbar = () => {
 								{!token ? (
 									<>
 										<Link
-											href="/sign-in"
+											href="/jukir/sign-in"
 											className={buttonVariants({
 												variant: "ghost",
 												className: "font-semibold",
@@ -114,7 +114,7 @@ export const Navbar = () => {
 											Sign in Jukir
 										</Link>
 										<Link
-											href="/sign-up"
+											href="/jukir/sign-up"
 											className={buttonVariants({
 												variant: "outline",
 												className: "font-semibold text-black",
