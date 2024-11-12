@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
+import Cookies from "js-cookie";
 
 interface User {
 	id: string;
@@ -14,32 +15,33 @@ interface AuthContextType {
 	setToken: (token: string | null) => void;
 	user: User | null;
 	setUser: (user: User | null) => void;
-	logout: () => void;
+	logOut: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [token, setToken] = useState<string | null>(() => {
-		return typeof window !== "undefined" ? localStorage.getItem("token") : null;
+		const token = typeof window !== "undefined" ? Cookies.get("token") : null;
+		return token ?? null;
 	});
 
 	const [user, setUser] = useState<User | null>(null);
 
 	useEffect(() => {
 		if (token) {
-			localStorage.setItem("token", token);
+			Cookies.set("token", token, { expires: 7 });
 		} else {
-			localStorage.removeItem("token");
+			Cookies.remove("token");
 		}
 	}, [token]);
 
-	const logout = () => {
+	const logOut = () => {
 		setToken(null);
-		localStorage.removeItem("token");
+		Cookies.remove("token");
 	};
 
-	return <AuthContext.Provider value={{ token, setToken, user, setUser, logout }}>{children}</AuthContext.Provider>;
+	return <AuthContext.Provider value={{ token, setToken, user, setUser, logOut }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
