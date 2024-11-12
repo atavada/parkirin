@@ -91,13 +91,13 @@ export default async function Page({ params }: { params: any }) {
 						</Card>
 					</div>
 
-					<section className="prose max-w-none mb-8">
+					{/* <section className="prose max-w-none mb-8">
 						<h3 className="text-2xl font-semibold mb-4">Tentang {mitraData.name}</h3>
 						<p>{mitraData.description}</p>
-					</section>
+					</section> */}
 
 					<div className="flex justify-center">
-						<Button size="lg">Hubungi Kami</Button>
+						<Button size="lg">Lamar Sekarang</Button>
 					</div>
 				</article>
 			</main>
