@@ -1,87 +1,122 @@
-"use client";
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, ButtonLoading } from "../ui/button";
-import { z } from "zod"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import Link from "next/link";
-import { Input } from "../ui/input";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+// import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export const FormMitra = () => {
-    const [isLoading, setIsLoading] = useState(false);
-    const formSchema = z.object({
-		phone_number: z.string().min(10, { message: "Phone number must be at least 10 characters." }),
-		password: z.string().min(8, "Minimal 8 karakter."),
-    });
+  const [formData, setFormData] = useState({
+    jamMulai: '',
+    jamSelesai: '',
+    gaji: '',
+    lokasi: '',
+    deskripsi: '',
+    tipeGaji: 'harian'
+  })
 
-    type UserFormValue = z.infer<typeof formSchema>;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
 
-    const form = useForm<UserFormValue>({ resolver: zodResolver(formSchema)});
-    
-    async function onSubmit(data:UserFormValue) {
-//
-    }
+  const handleSelectChange = (value: string) => {
+    setFormData(prev => ({ ...prev, tipeGaji: value }))
+  }
 
-    return(
-        <>
-            <Card className="mx-[300px] max-w-[1000px] rounded-xl">
-                <CardHeader>
-                    <CardTitle className="text-2xl">Formulir</CardTitle>
-                    <CardDescription>Silahkan mengisi formulir berikut</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                        <FormField
-                            control={form.control}
-                            name="p"
-                            render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Jam Kerja</FormLabel>
-                                <FormControl>
-                                <Input type="text" />
-                                </FormControl>
-                                <FormDescription>Masukkan nomor telepon anda.</FormDescription>
-                                <FormMessage className="text-xs italic" />
-                            </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="p"
-                            render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Gaji / direct customer</FormLabel>
-                                <FormControl>
-                                <Input type="password" placeholder="" {...field} />
-                                </FormControl>
-                                <FormDescription>Password minimal 8 karakter.</FormDescription>
-                                <FormMessage className="text-xs italic" />
-                            </FormItem>
-                            )}
-                        />
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log('Data lowongan:', formData)
+    // Di sini Anda akan menambahkan logika untuk mengirim data ke backend
+    alert('Lowongan berhasil dibagikan!')
+  }
 
-                        <div className="mt-4 text-end text-sm">
-                            Belum memiliki akun?{" "}
-                            <Link href="/sign-up" className="underline">
-                            Sign up
-                            </Link>
-                        </div>
-
-                        {isLoading ? (
-                            <ButtonLoading className="w-full" />
-                        ) : (
-                            <Button disabled={isLoading} type="submit" className="w-full">
-                            Masuk
-                            </Button>
-                        )}
-                        </form>
-                    </Form>
-                </CardContent>
-            </Card>
-        </>
-    )
-};
+  return (
+    <div className="container mx-auto p-4">
+      <Card className="w-full max-w-2xl mx-auto">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">Bagikan Lowongan Jukir</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="jamMulai">Jam Mulai</Label>
+                <Input
+                  id="jamMulai"
+                  name="jamMulai"
+                  type="time"
+                  value={formData.jamMulai}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="jamSelesai">Jam Selesai</Label>
+                <Input
+                  id="jamSelesai"
+                  name="jamSelesai"
+                  type="time"
+                  value={formData.jamSelesai}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="gaji">Gaji</Label>
+              <div className="flex space-x-2">
+                <Input
+                  id="gaji"
+                  name="gaji"
+                  type="number"
+                  placeholder="Masukkan jumlah gaji"
+                  value={formData.gaji}
+                  onChange={handleInputChange}
+                  required
+                  className="flex-grow"
+                />
+                {/* <Select value={formData.tipeGaji} onValueChange={handleSelectChange}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Pilih tipe gaji" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="harian">Per Hari</SelectItem>
+                    <SelectItem value="mingguan">Per Minggu</SelectItem>
+                    <SelectItem value="bulanan">Per Bulan</SelectItem>
+                  </SelectContent>
+                </Select> */}
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="lokasi">Lokasi</Label>
+              <Input
+                id="lokasi"
+                name="lokasi"
+                placeholder="Masukkan lokasi kerja"
+                value={formData.lokasi}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            {/* <div className="space-y-2">
+              <Label htmlFor="deskripsi">Deskripsi Pekerjaan</Label>
+              <Textarea
+                id="deskripsi"
+                name="deskripsi"
+                placeholder="Jelaskan detail pekerjaan dan persyaratan"
+                value={formData.deskripsi}
+                onChange={handleInputChange}
+                rows={4}
+              />
+            </div> */}
+            <Button type="submit" className="w-full">Bagikan Lowongan</Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}

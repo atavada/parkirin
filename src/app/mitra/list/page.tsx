@@ -1,3 +1,5 @@
+"use client";
+
 import { AppSidebar } from "@/components/mitra/app-sidebar"
 // import {
 //   Breadcrumb,
@@ -8,7 +10,6 @@ import { AppSidebar } from "@/components/mitra/app-sidebar"
 //   BreadcrumbSeparator,
 // } from "@/components/ui/breadcrumb"
 import { Separator } from "@/components/ui/separator"
-import { FormMitra } from "@/components/mitra/FormMitra"
 import { ListJukir } from "@/components/mitra/ListJukir"
 
 import {

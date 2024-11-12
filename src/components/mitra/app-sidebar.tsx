@@ -29,31 +29,21 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
+    name: "Nama Mitra",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: "Parkirin",
       logo: GalleryVerticalEnd,
       plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
     },
   ],
   navMain: [
     {
-      title: "Form",
-      url: "/form",
+      title: "Cari Jukir",
+      url: "/mitra/form",
       icon: SquareTerminal,
       isActive: true,
     },
