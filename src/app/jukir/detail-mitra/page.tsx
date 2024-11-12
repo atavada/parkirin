@@ -2,6 +2,8 @@ import { MapPin, Clock, Briefcase, Mail, Phone } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Navbar } from "@/components/home-page/Navbar";
+import { Footer } from "@/components/home-page/Footer";
 
 interface MitraData {
 	name: string;
@@ -28,12 +30,9 @@ const mitraData: MitraData = {
 
 export default async function Page({ params }: { params: any }) {
 	return (
+        <>
+        <Navbar />
 		<div className="min-h-screen flex flex-col">
-			<header className="bg-primary text-primary-foreground py-6">
-				<div className="container mx-auto px-4">
-					<h1 className="text-3xl font-bold">Profil Mitra</h1>
-				</div>
-			</header>
 
 			<main className="flex-grow container mx-auto px-4 py-8">
 				<article className="max-w-4xl mx-auto">
@@ -102,11 +101,8 @@ export default async function Page({ params }: { params: any }) {
 				</article>
 			</main>
 
-			<footer className="bg-muted py-6">
-				<div className="container mx-auto px-4 text-center text-muted-foreground">
-					<p>&copy; 2024 {mitraData.name}. Hak Cipta Dilindungi.</p>
-				</div>
-			</footer>
 		</div>
+        <Footer />
+        </>
 	);
 }
