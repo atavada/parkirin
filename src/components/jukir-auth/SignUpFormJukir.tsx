@@ -13,7 +13,7 @@ import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { Toaster } from "../ui/toaster";
 
-export const SignUpForm = () => {
+export const SignUpFormJukir = () => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const formSchema = z.object({
@@ -66,9 +66,8 @@ export const SignUpForm = () => {
 				title: "Registrasi Gagal",
 				description: "Terjadi kesalahan jaringan. Silahkan coba lagi.",
 			});
-		} finally {
-			setIsLoading(false);
 		}
+		setIsLoading(false);
 	}
 
 	function onError(error: any) {

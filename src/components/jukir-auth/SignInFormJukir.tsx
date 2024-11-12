@@ -11,14 +11,14 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "../ui/phone-input";
 import { toast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "../ui/toaster";
 import { useAuth } from "@/app/contexts/AuthContext";
 
-export const SignInForm = () => {
+export const SignInFormJukir = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
-	const { setToken } = useAuth();
+	const { token, setToken } = useAuth();
 
 	const formSchema = z.object({
 		phone_number: z.string().min(10, { message: "Phone number must be at least 10 characters." }),
@@ -72,6 +72,12 @@ export const SignInForm = () => {
 		}
 	}
 
+	useEffect(() => {
+		if (!!token) {
+			router.push("/jukir");
+		}
+	}, [token]);
+
 	function onError(error: any) {
 		if (error.confirm) {
 			return toast({
@@ -123,7 +129,7 @@ export const SignInForm = () => {
 
 							<div className="mt-4 text-end text-sm">
 								Belum memiliki akun?{" "}
-								<Link href="/sign-up" className="underline">
+								<Link href="/jukir-sign-up" className="underline">
 									Sign up
 								</Link>
 							</div>
