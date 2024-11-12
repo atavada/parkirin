@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Navbar } from "@/components/home-page/Navbar";
 import { Footer } from "@/components/home-page/Footer";
 import { useAuth } from "../contexts/AuthContext";
-import ListMitra from "@/components/ListMitra";
+import ListMitra from "@/components/jukir/ListMitra";
 
 interface UserData {
 	data: {
