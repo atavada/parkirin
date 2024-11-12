@@ -204,3 +204,7 @@
 // }
 
 // export default MitraDetailPage
+
+export default function Page() {
+	return <div>detail</div>;
+}
