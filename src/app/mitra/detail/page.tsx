@@ -8,7 +8,7 @@ import { AppSidebar } from "@/components/mitra/app-sidebar"
 //   BreadcrumbSeparator,
 // } from "@/components/ui/breadcrumb"
 import { Separator } from "@/components/ui/separator"
-import { FormMitra } from "@/components/mitra/FormMitra"
+import { DetailJukir } from "@/components/mitra/DetailJukir"
 
 import {
   SidebarInset,
@@ -40,7 +40,7 @@ export default function Page() {
             </Breadcrumb> */}
           </div>
         </header>
-        <FormMitra />
+        <DetailJukir />
       </SidebarInset>
     </SidebarProvider>
   )
