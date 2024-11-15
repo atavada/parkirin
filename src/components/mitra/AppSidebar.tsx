@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Bot, Command, Frame, LifeBuoy, Send, Settings2, SquareTerminal } from "lucide-react";
+import { Bot, Command, Frame, LifeBuoy, LucideIcon, Send, Settings2, SquareTerminal } from "lucide-react";
 
 import { NavMain } from "@/components/mitra/NavMain";
 import { NavSecondary } from "@/components/mitra/NavSecondary";
@@ -17,6 +17,19 @@ import {
 } from "@/components/ui/sidebar";
 import { useStoreSession } from "@/app/session/UserSession";
 
+interface NavMainItem {
+	title: string;
+	url: string;
+	icon: LucideIcon;
+	isActive?: boolean;
+	type: "link" | "dropdown";
+	items: {
+		title: string;
+		url: string;
+	}[];
+}
+[];
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const { store, loading, error } = useStoreSession();
 
@@ -31,21 +44,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				title: "Home",
 				url: "/mitra",
 				icon: SquareTerminal,
+				type: "link",
 			},
 			{
 				title: "List Juru Parkir",
-				url: "/mitra/list",
+				url: "/mitra/list-jukir",
 				icon: Bot,
-			},
-			{
-				title: "Tawarkan Jasa",
-				url: "/mitra/form",
-				icon: Frame,
+				type: "dropdown",
+				items: [
+					{ title: "List Semua Jukir", url: "/mitra/list-jukir/all" },
+					{ title: "List Apply Jukir", url: "/mitra/list-jukir/apply" },
+				],
 			},
 			{
 				title: "Settings",
-				url: "#",
+				url: "/mitra/settings",
 				icon: Settings2,
+				type: "link",
 			},
 		],
 		navSecondary: [
@@ -53,11 +68,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				title: "Support",
 				url: "#",
 				icon: LifeBuoy,
+				type: "link",
 			},
 			{
 				title: "Feedback",
 				url: "#",
 				icon: Send,
+				type: "link",
 			},
 		],
 	};
@@ -82,7 +99,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				</SidebarMenu>
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain items={data.navMain} />
+				<NavMain items={data.navMain as NavMainItem[]} />
 				<NavSecondary items={data.navSecondary} className="mt-auto" />
 			</SidebarContent>
 			<SidebarFooter>
