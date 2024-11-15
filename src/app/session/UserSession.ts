@@ -21,6 +21,7 @@ interface Store {
 	is_hiring: boolean;
 	is_paid: boolean;
 	created_at: number;
+	url_image: string;
 }
 
 export const useUserSession = () => {
