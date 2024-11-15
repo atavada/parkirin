@@ -7,8 +7,8 @@ import {
 	BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import { FormMitra } from "@/components/mitra/FormMitra";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import MitraSettings from "@/components/mitra/MitraSettings";
 
 export default function Page() {
 	return (
@@ -24,7 +24,7 @@ export default function Page() {
 							</BreadcrumbItem>
 							<BreadcrumbSeparator className="hidden md:block" />
 							<BreadcrumbItem>
-								<BreadcrumbPage>Tawarkan Jasa</BreadcrumbPage>
+								<BreadcrumbPage>Mitra Settings</BreadcrumbPage>
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
@@ -33,7 +33,10 @@ export default function Page() {
 
 			{/* Main Content */}
 			<div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-				<FormMitra />
+				<div className="container mx-auto p-4">
+					<h1 className="text-2xl font-bold mb-4">Setting Profile Mitra</h1>
+					<MitraSettings />
+				</div>
 			</div>
 		</>
 	);
