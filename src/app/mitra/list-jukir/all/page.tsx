@@ -33,7 +33,10 @@ export default function Page() {
 
 			{/* Main Content */}
 			<div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-				<ListJukir />
+				<div className="container mx-auto p-4">
+					<h1 className="text-2xl font-bold mb-4">Daftar Juru Parkir</h1>
+					<ListJukir />
+				</div>
 			</div>
 		</>
 	);

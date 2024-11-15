@@ -1,3 +1,4 @@
+import { ListApplyJukir } from "@/components/mitra/ListApplyJukir";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -7,7 +8,6 @@ import {
 	BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import { DetailJukir } from "@/components/mitra/DetailJukir";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function Page() {
@@ -23,12 +23,8 @@ export default function Page() {
 								<BreadcrumbLink href="#">Home</BreadcrumbLink>
 							</BreadcrumbItem>
 							<BreadcrumbSeparator className="hidden md:block" />
-							<BreadcrumbItem className="hidden md:block">
-								<BreadcrumbLink href="/mitra/list">List Juru Parkir</BreadcrumbLink>
-							</BreadcrumbItem>
-							<BreadcrumbSeparator className="hidden md:block" />
 							<BreadcrumbItem>
-								<BreadcrumbPage>Detail Juru Parkir (nama)</BreadcrumbPage>
+								<BreadcrumbPage>List Juru Parkir</BreadcrumbPage>
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
@@ -37,7 +33,10 @@ export default function Page() {
 
 			{/* Main Content */}
 			<div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-				<DetailJukir />
+				<div className="container mx-auto p-4">
+					<h1 className="text-2xl font-bold mb-4">Daftar Apply Juru Parkir</h1>
+					<ListApplyJukir />
+				</div>
 			</div>
 		</>
 	);
