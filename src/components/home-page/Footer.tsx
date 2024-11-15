@@ -1,13 +1,14 @@
 import { Facebook, Instagram, MapPin, Twitter, Youtube } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const FooterSection = ({ title, links }: { title: string; links: { href: string; label: string }[] }) => (
 	<div className="space-y-4">
-		<h4 className="text-lg font-semibold text-purple-600">{title}</h4>
+		<h4 className="text-lg font-semibold text-primary">{title}</h4>
 		<ul className="space-y-2">
 			{links.map((link) => (
 				<li key={link.label}>
-					<Link href={link.href} className="text-gray-600 hover:text-purple-600">
+					<Link href={link.href} className="text-gray-600 hover:text-primary">
 						{link.label}
 					</Link>
 				</li>
@@ -18,18 +19,18 @@ const FooterSection = ({ title, links }: { title: string; links: { href: string;
 
 const SocialLinks = () => (
 	<div className="space-y-4">
-		<h4 className="text-lg font-semibold text-purple-600">Follow us</h4>
+		<h4 className="text-lg font-semibold text-primary">Follow us</h4>
 		<div className="flex space-x-4">
-			<Link href="#" className="text-gray-600 hover:text-purple-600" aria-label="Facebook">
+			<Link href="#" className="text-gray-600 hover:text-primary" aria-label="Facebook">
 				<Facebook className="h-6 w-6" />
 			</Link>
-			<Link href="#" className="text-gray-600 hover:text-purple-600" aria-label="Instagram">
+			<Link href="#" className="text-gray-600 hover:text-primary" aria-label="Instagram">
 				<Instagram className="h-6 w-6" />
 			</Link>
-			<Link href="#" className="text-gray-600 hover:text-purple-600" aria-label="Twitter">
+			<Link href="#" className="text-gray-600 hover:text-primary" aria-label="Twitter">
 				<Twitter className="h-6 w-6" />
 			</Link>
-			<Link href="#" className="text-gray-600 hover:text-purple-600" aria-label="TikTok">
+			<Link href="#" className="text-gray-600 hover:text-primary" aria-label="TikTok">
 				<Youtube className="h-6 w-6" />
 			</Link>
 		</div>
@@ -86,22 +87,22 @@ export const Footer = () => {
 				<div className="border-t my-10" />
 				<div className="container flex flex-col md:flex-row items-center justify-between mx-auto px-4 md:px-6 space-y-4 md:space-y-0">
 					<div className="flex items-center space-x-2">
-						<div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-							<MapPin className="h-4 w-4 text-white" />
+						<div className="w-8 h-8 flex items-center justify-center">
+							<Image src="/icon.png" alt="Parkirin" width={32} height={32} />
 						</div>
-						<span className="text-xl font-bold text-purple-600">Parkirin</span>
+						<span className="text-xl font-bold text-primary">Parkirin</span>
 					</div>
 					<nav className="flex flex-wrap gap-4 md:gap-6">
-						<Link href="#" className="text-sm text-gray-600 hover:text-purple-600">
+						<Link href="#" className="text-sm text-gray-600 hover:text-primary">
 							Privacy Policy
 						</Link>
-						<Link href="#" className="text-sm text-gray-600 hover:text-purple-600">
+						<Link href="#" className="text-sm text-gray-600 hover:text-primary">
 							Terms of Service
 						</Link>
-						<Link href="#" className="text-sm text-gray-600 hover:text-purple-600">
+						<Link href="#" className="text-sm text-gray-600 hover:text-primary">
 							Security
 						</Link>
-						<Link href="#" className="text-sm text-gray-600 hover:text-purple-600">
+						<Link href="#" className="text-sm text-gray-600 hover:text-primary">
 							Data Record
 						</Link>
 					</nav>

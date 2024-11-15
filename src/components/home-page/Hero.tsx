@@ -1,52 +1,59 @@
-import Image from "next/image";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
+"use client"
+
+import { useEffect, useState } from "react";
 
 export const Hero = () => {
-	return (
-		<>
-			<section className="w-full py-12 md:py-24 lg:py-32">
-				<div className="container mx-auto px-4 md:px-6">
-					<div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-						<div className="flex flex-col justify-center space-y-4">
-							<div className="space-y-3">
-								{/* <Badge
-									variant="outline"
-									className="rounded-full px-3 py-1 text-sm text-secondary-foreground font-medium border-secondary-foreground"
-								>
-									Explore The Parkirin App →
-								</Badge> */}
-								<h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-									Kalo mau duit
-									<br />
-									Harus mau
-									<br />
-									<span className="text-purple-600 inline-block border-b-4 border-purple-600">Parkirin</span> dulu
-								</h1>
-								<p className="max-w-[600px] text-gray-500 md:text-xl">
-                                    Parkirin adalah aplikasi yang memudahkan juru parkir untuk mendapatkan tempat bekerja yang nyaman
-								</p>
-							</div>
-							<div className="flex flex-col gap-2 min-[400px]:flex-row">
-								<Button className="inline-flex h-12 items-center justify-center px-8 font-semibold rounded-full">
-									Get Started
-								</Button>
-							</div>
-						</div>
+    const [offsetY, setOffsetY] = useState(0);
 
-						<div className="relative">
-							<div className="absolute inset-0 bg-gradient-to-r from-purple-300 to-green-300 rounded-full blur-3xl opacity-50" />
-							<Image
-								alt="App preview"
-								className="relative mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:aspect-square border border-gray-200 shadow-xl h-[20rem]"
-								height="350"
-								src="/parkir.jpg"
-								width="550"
-							/>
-						</div>
-					</div>
-				</div>
-			</section>
-		</>
-	);
+    const handleScroll = () => {
+        setOffsetY(window.scrollY * 0.5);
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    return (
+        <>
+            <div
+                className="w-full min-h-screen flex items-center pt-12 bg-cover bg-center relative"
+                style={{
+                    backgroundImage: "url('/parkir.jpg')",
+                    backgroundPositionY: `${offsetY}px`
+                }}
+            >
+                <div className="absolute inset-0 bg-black opacity-75"></div>
+
+                <div className="container mx-auto relative z-10">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        <div className="text-center lg:text-left space-y-4 pl-0 md:pl-8">
+                            <h1 className="text-white text-4xl lg:text-6xl font-bold cursor-default">Mau Duit?</h1>
+                            <h1 className="text-white text-4xl lg:text-6xl font-bold cursor-default">
+                                <span className="text-primary">Parkirin</span> Dulu Aja
+                            </h1>
+                            <p className="text-white text-lg lg:text-xl leading-relaxed font-medium cursor-default">
+                                Solusi juru parkir untuk mendapatkan tempat bekerja yang nyaman
+                            </p>
+                            <button
+                                id="aboutButton"
+                                className="px-8 py-3 bg-primary border-primary text-white font-bold rounded-lg hover:bg-white hover:text-primary transition duration-300"
+                            >
+                                Selengkapnya
+                            </button>
+                        </div>
+                        <div className="flex justify-center lg:justify-end mb-10 md:mb-0 pr-0 md:pr-10">
+                            <img
+                                className="w-[20rem] lg:w-4/5 rounded-2xl transition-transform duration-500 hover:scale-105"
+                                src={"/parkirmotor.jpg"}
+                                alt={""}
+                                width={30}
+                                height={30}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 };

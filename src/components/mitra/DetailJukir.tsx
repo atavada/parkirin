@@ -1,111 +1,56 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Star, User } from "lucide-react"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
 
 interface Jukir {
-  id: number
-  nama: string
-  nomor: string
-  rating: number
-  foto: string
+	id: string;
+	nama: string;
+	phone_number: string;
+	role: string;
 }
 
-// Contoh data jukir (dalam implementasi nyata, ini bisa diambil dari API atau props)
-const jukir: Jukir = {
-  id: 1,
-  nama: "Budi Santoso",
-  nomor: "081234567890",
-  rating: 4.5,
-  foto: "/placeholder.svg?height=100&width=100"
-}
+export const DetailJukir = ({ jukir_id }: { jukir_id: string }) => {
+	const [jukir, setJukir] = useState<Jukir | null>(null);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 
-export const DetailJukir = () => {
-  const handleTerima = () => {
-    console.log(`Jukir ${jukir.nama} diterima`)
-  }
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch(`/api/users/${jukir_id}`);
+				const result = await response.json();
+				const data = result.data;
+				setJukir({
+					id: data.id,
+					nama: data.name,
+					phone_number: data.phone_number,
+					role: data.role,
+				});
+			} catch (error) {
+				console.error("Error fetching data:", error);
+			} finally {
+				setIsLoading(false);
+			}
+		};
 
-  const handleTolak = () => {
-    console.log(`Jukir ${jukir.nama} ditolak`)
-  }
+		fetchData();
+	}, [jukir_id]);
 
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold">Detail Juru Parkir</h1>
-      <Card className="w-full max-w-md mx-auto">
-        <CardHeader>
-            <CardTitle className="text-2xl">Biodata Jukir</CardTitle>
-            <CardDescription>Berikut adalah informasi pribadi jukir.</CardDescription>
-        </CardHeader>
-        <CardContent className="p-6">
-          {/* <div className="flex items-center space-x-4 mb-4">
-            <img
-              src={jukir.foto}
-              alt={jukir.nama}
-              className="w-20 h-20 rounded-full object-cover"
-            />
-            <div>
-              <h4 className="text-xl font-semibold">{jukir.nama}</h4>
-              <p className="text-gray-600">{jukir.nomor}</p>
-            </div>
-          </div> */}
-          {/* <div className="flex items-center mb-4">
-            <span className="mr-2">Rating:</span>
-            {[...Array(5)].map((_, index) => (
-              <Star
-                key={index}
-                className={`w-5 h-5 ${
-                  index < Math.floor(jukir.rating)
-                    ? "text-yellow-400 fill-current"
-                    : "text-gray-300"
-                }`}
-              />
-            ))}
-            <span className="ml-2">{jukir.rating.toFixed(1)}</span>
-          </div> */}
-          <div className="bg-gray-100 p-4 rounded-lg mb-4">
-            <h4 className="text-xl font-semibold">{jukir.nama}</h4>
-            <p className="text-gray-600">{jukir.nomor}</p>
-            <div className="flex items-center mt-4">
-            <span className="mr-2">Rating:</span>
-            {[...Array(5)].map((_, index) => (
-              <Star
-                key={index}
-                className={`w-5 h-5 ${
-                  index < Math.floor(jukir.rating)
-                    ? "text-yellow-400 fill-current"
-                    : "text-gray-300"
-                }`}
-              />
-            ))}
-            <span className="ml-2">{jukir.rating.toFixed(1)}</span>
-          </div>
-          </div>
-          {/* <div className="flex items-center">
-            <span className="mr-2">Rating:</span>
-            {[...Array(5)].map((_, index) => (
-              <Star
-                key={index}
-                className={`w-5 h-5 ${
-                  index < Math.floor(jukir.rating)
-                    ? "text-yellow-400 fill-current"
-                    : "text-gray-300"
-                }`}
-              />
-            ))}
-            <span className="ml-2">{jukir.rating.toFixed(1)}</span>
-          </div> */}
-        </CardContent>
-        <CardFooter className="flex justify-between p-6">
-          <Button onClick={handleTerima} className="bg-green-500 hover:bg-green-600">
-            Terima
-          </Button>
-          <Button onClick={handleTolak} className="bg-red-500 hover:bg-red-600">
-            Tolak
-          </Button>
-        </CardFooter>
-      </Card>
-    </div>
-  )
-}
+	if (isLoading) {
+		return <div className="text-gray-500">Mohon tunggu...</div>;
+	}
+
+	if (!jukir) {
+		return <div className="text-gray-500">Data tidak ditemukan</div>;
+	}
+
+	return (
+		<>
+			<div className="bg-gray-100 p-6 rounded-lg space-y-2">
+				<h4 className="text-xl font-semibold">{jukir.nama}</h4>
+				<p className="text-gray-600">{jukir.phone_number}</p>
+			</div>
+		</>
+	);
+};
