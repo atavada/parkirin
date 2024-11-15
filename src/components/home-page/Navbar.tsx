@@ -82,7 +82,6 @@ export const Navbar = () => {
 								</Sheet>
 							</span>
 
-							{/* desktop */}
 							<nav className="hidden md:flex gap-4">
 								{routeList.map((route: RouteProps, i) => (
 									<Link
@@ -92,7 +91,7 @@ export const Navbar = () => {
 										className={buttonVariants({
 											variant: "ghost",
 											className:
-												"font-medium underline-offset-4 hover:bg-transparent border border-transparent hover:border hover:border-secondary rounded-full",
+												"font-extrabold hover:bg-transparent border border-transparent hover:border hover:border-secondary rounded-full",
 										})}
 									>
 										{route.label}
@@ -114,7 +113,7 @@ export const Navbar = () => {
 											Sign in Jukir
 										</Link>
 										<Link
-											href="/jukir/sign-up"
+											href="/mitra/sign-in"
 											className={buttonVariants({
 												variant: "outline",
 												className: "font-semibold text-black",

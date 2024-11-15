@@ -33,7 +33,7 @@ export const Hero = () => {
                                 <span className="text-primary">Parkirin</span> Dulu Aja
                             </h1>
                             <p className="text-white text-lg lg:text-xl leading-relaxed font-medium cursor-default">
-                                Parkirin adalah aplikasi yang memudahkan juru parkir untuk mendapatkan tempat bekerja yang nyaman
+                                Solusi juru parkir untuk mendapatkan tempat bekerja yang nyaman
                             </p>
                             <button
                                 id="aboutButton"
