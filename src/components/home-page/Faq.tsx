@@ -8,7 +8,7 @@ export const Faq = () => {
 					<div className="flex flex-col items-center justify-center space-y-4 text-center">
 						<h2 className="text-3xl font-bold">
 							FAQ
-							<div className="mt-1 h-1 w-12 bg-purple-600 mx-auto" />
+							<div className="mt-1 h-1 w-12 bg-primary mx-auto" />
 						</h2>
 					</div>
 					<div className="mx-auto max-w-3xl mt-8">

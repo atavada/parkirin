@@ -7,6 +7,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { MapPin, Menu } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from "@/app/contexts/AuthContext";
+import Image from "next/image";
 
 interface RouteProps {
 	href: string;
@@ -40,15 +41,14 @@ export const Navbar = () => {
 						<NavigationMenuItem className="font-bold flex">
 							<Link rel="noreferrer noopener" href="/" className="ml-2 font-bold text-lg flex items-center">
 								{/* Logo */}
-								<MapPin className="h-10 w-10 mr-2 border rounded-full text-white bg-primary py-2" />
-								Parkirin
+								<Image src="/logo.png" alt="Parkirin Logo" width={70} height={40} />
 							</Link>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
 							{/* mobile */}
 							<span className="flex md:hidden">
 								<Sheet open={isOpen} onOpenChange={setIsOpen}>
-									<SheetTrigger className="px-2">
+									<SheetTrigger className="md:hidden absolute right-4 top-4 mt-3 mr-5">
 										<Menu className="flex md:hidden h-5 w-5" onClick={() => setIsOpen(true)} />
 									</SheetTrigger>
 
@@ -82,7 +82,6 @@ export const Navbar = () => {
 								</Sheet>
 							</span>
 
-							{/* desktop */}
 							<nav className="hidden md:flex gap-4">
 								{routeList.map((route: RouteProps, i) => (
 									<Link
@@ -92,7 +91,7 @@ export const Navbar = () => {
 										className={buttonVariants({
 											variant: "ghost",
 											className:
-												"font-medium underline-offset-4 hover:bg-transparent border border-transparent hover:border hover:border-secondary rounded-full",
+												"font-extrabold hover:bg-transparent border border-transparent hover:border hover:border-secondary rounded-full",
 										})}
 									>
 										{route.label}
@@ -114,7 +113,7 @@ export const Navbar = () => {
 											Sign in Jukir
 										</Link>
 										<Link
-											href="/jukir/sign-up"
+											href="/mitra/sign-in"
 											className={buttonVariants({
 												variant: "outline",
 												className: "font-semibold text-black",

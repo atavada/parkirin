@@ -135,7 +135,7 @@ export const SignUpFormJukir = () => {
 
 							<div className="mt-4 text-end text-sm">
 								Sudah memiliki akun?{" "}
-								<Link href="/sign-in" className="underline">
+								<Link href="/jukir/sign-in" className="underline">
 									Sign in
 								</Link>
 							</div>

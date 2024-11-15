@@ -3,10 +3,10 @@
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import React, { useEffect, useState } from "react";
-import { Navbar } from "@/components/home-page/Navbar";
 import { Footer } from "@/components/home-page/Footer";
 import { useAuth } from "../contexts/AuthContext";
 import ListMitra from "@/components/jukir/ListMitra";
+import { NavbarJukir } from "@/components/jukir/NavbarJukir";
 
 interface UserData {
 	data: {
@@ -47,7 +47,7 @@ export default function Page() {
 
 	return (
 		<>
-			<Navbar />
+			<NavbarJukir />
 			<div className="p-10 font-bold text-2xl">
 				<h1>Hallo selamat datang Juru Parkir {user?.name}</h1>
 			</div>
