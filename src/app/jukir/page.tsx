@@ -1,7 +1,6 @@
 "use client";
 
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
+
 import React, { useEffect, useState } from "react";
 import { Footer } from "@/components/home-page/Footer";
 import { useAuth } from "../contexts/AuthContext";
@@ -18,7 +17,6 @@ interface UserData {
 export default function Page() {
 	const { token } = useAuth();
 	const [data, setData] = useState<UserData | null>(null);
-	const [isLoading, setLoading] = useState(false);
 	const user = data?.data;
 
 	useEffect(() => {
@@ -52,8 +50,6 @@ export default function Page() {
 				<h1>Hallo selamat datang Juru Parkir {user?.name}</h1>
 			</div>
 			<div className="p-10">
-				<Input type="text" placeholder="Cari mitra Anda..." className="mb-10" />
-				<Separator />
 				<ListMitra />
 			</div>
 			<Footer />

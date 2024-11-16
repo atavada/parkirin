@@ -39,11 +39,7 @@ export function NavbarJukir() {
                 <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                     <div className="flex items-center gap-4 md:gap-8">
                         <h1 className="text-xl font-bold">Parkirin</h1>
-                        <Input
-                            className="hidden md:block w-[300px]"
-                            placeholder="Search..."
-                            type="search"
-                        />
+
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -87,11 +83,6 @@ export function NavbarJukir() {
                             onClick={e => e.stopPropagation()}
                         >
                             <div className="p-4 space-y-4">
-                                <Input
-                                    className="w-full"
-                                    placeholder="Search..."
-                                    type="search"
-                                />
                                 <div className="space-y-2">
                                     <Button
                                         variant="ghost"
