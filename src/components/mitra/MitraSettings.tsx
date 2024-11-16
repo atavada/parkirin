@@ -22,23 +22,37 @@ export default function MitraSettings() {
 					<Card>
 						<CardContent className="p-6">
 							<div className="aspect-square overflow-hidden rounded-lg mb-4">
-								<img src={store?.url_image} alt={store?.store_name} className="w-full h-full object-cover rounded-lg" />
+								{!store?.url_image ? (
+									<div className="text-gray-500 flex items-center justify-center w-full h-full border rounded-lg">
+										Belum ada gambar mitra.
+									</div>
+								) : (
+									<img
+										src={store?.url_image}
+										alt={store?.store_name}
+										className="w-full h-full object-cover rounded-lg shadow"
+									/>
+								)}
 							</div>
 							<h2 className="text-xl font-semibold mb-1">{store?.store_name}</h2>
-							<p className="text-blue-500 mb-4">{store?.user.role}</p>
-							<div className="flex gap-2">
-								<Link
-									href="/mitra/settings/upload-image"
-									className={buttonVariants({
-										size: "default",
-										variant: "outline",
-										className: "flex-1",
-									})}
-								>
-									<Upload className="w-4 h-4 mr-2" />
-									Upload Foto
-								</Link>
-							</div>
+							<p className="text-blue-500">{store?.user.role}</p>
+							{!store?.url_image && (
+								<>
+									<div className="flex gap-2 mt-4">
+										<Link
+											href="/mitra/settings/upload-image"
+											className={buttonVariants({
+												size: "default",
+												variant: "outline",
+												className: "flex-1",
+											})}
+										>
+											<Upload className="w-4 h-4 mr-2" />
+											Upload Foto
+										</Link>
+									</div>
+								</>
+							)}
 						</CardContent>
 					</Card>
 

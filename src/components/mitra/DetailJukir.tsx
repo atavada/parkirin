@@ -1,8 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
 
 interface Jukir {
 	id: string;
@@ -27,10 +25,9 @@ export const DetailJukir = ({ jukir_id }: { jukir_id: string }) => {
 					phone_number: data.phone_number,
 					role: data.role,
 				});
+				setIsLoading(false);
 			} catch (error) {
 				console.error("Error fetching data:", error);
-			} finally {
-				setIsLoading(false);
 			}
 		};
 
