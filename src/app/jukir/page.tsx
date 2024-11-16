@@ -1,10 +1,9 @@
 "use client";
 
-
 import React, { useEffect, useState } from "react";
 import { Footer } from "@/components/home-page/Footer";
 import { useAuth } from "../contexts/AuthContext";
-import ListMitra from "@/components/jukir/ListMitra";
+import { ListMitra } from "@/components/jukir/ListMitra";
 import { NavbarJukir } from "@/components/jukir/NavbarJukir";
 
 interface UserData {
