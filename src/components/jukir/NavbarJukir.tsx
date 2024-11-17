@@ -1,15 +1,22 @@
-"use client"
+"use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Input } from "../ui/input";
 import { useState, useEffect } from "react";
-import { Menu, X, User, MessageCircle, Users } from "lucide-react";
+import { Menu, X, User, MessageCircle, Users, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/contexts/AuthContext";
 
 export function NavbarJukir() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { logOut, user } = useAuth();
+    const router = useRouter();
 
-    // Menutup menu ketika ukuran layar berubah ke desktop
+    const handleLogout = () => {
+        logOut();
+        router.push("/");
+    };
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 768) {
@@ -17,19 +24,18 @@ export function NavbarJukir() {
             }
         };
 
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Mencegah scrolling ketika menu mobile terbuka
     useEffect(() => {
         if (menuOpen) {
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = "hidden";
         } else {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflow = "unset";
         }
         return () => {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflow = "unset";
         };
     }, [menuOpen]);
 
@@ -39,7 +45,6 @@ export function NavbarJukir() {
                 <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                     <div className="flex items-center gap-4 md:gap-8">
                         <h1 className="text-xl font-bold">Parkirin</h1>
-
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -69,18 +74,25 @@ export function NavbarJukir() {
                             </Button>
                             <Avatar>
                                 <AvatarImage src="/placeholder.svg" alt="Profile" />
-                                <AvatarFallback>PF</AvatarFallback>
+                                <AvatarFallback>{user?.name?.[0] || "PF"}</AvatarFallback>
                             </Avatar>
+                            <Button
+                                variant="ghost"
+                                className="flex items-center text-red-500"
+                                onClick={handleLogout}
+                            >
+                                <LogOut className="mr-2" size={20} />
+                                Logout
+                            </Button>
                         </div>
                     </div>
                 </div>
 
-                {/* Mobile Menu dengan animasi dan overlay */}
                 {menuOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setMenuOpen(false)}>
                         <div
                             className="fixed top-[60px] right-0 h-full w-[80%] max-w-[300px] bg-white shadow-lg transform transition-transform duration-300 ease-in-out"
-                            onClick={e => e.stopPropagation()}
+                            onClick={(e) => e.stopPropagation()}
                         >
                             <div className="p-4 space-y-4">
                                 <div className="space-y-2">
@@ -105,15 +117,23 @@ export function NavbarJukir() {
                                         <User size={20} />
                                         My Contacts
                                     </Button>
+                                    <Button
+                                        variant="ghost"
+                                        className="w-full flex justify-start items-center gap-2 h-12 text-red-500"
+                                        onClick={handleLogout}
+                                    >
+                                        <LogOut size={20} />
+                                        Logout
+                                    </Button>
                                 </div>
                                 <div className="pt-4 border-t">
                                     <div className="flex items-center gap-3">
                                         <Avatar>
                                             <AvatarImage src="/placeholder.svg" alt="Profile" />
-                                            <AvatarFallback>PF</AvatarFallback>
+                                            <AvatarFallback>{user?.name?.[0] || "PF"}</AvatarFallback>
                                         </Avatar>
                                         <div>
-                                            <p className="font-medium">Your Profile</p>
+                                            <p className="font-medium">{user?.name || "Your Profile"}</p>
                                             <p className="text-sm text-gray-500">View and edit profile</p>
                                         </div>
                                     </div>
@@ -123,7 +143,6 @@ export function NavbarJukir() {
                     </div>
                 )}
             </header>
-            {/* Spacer untuk fixed header */}
             <div className="h-[60px]" />
         </>
     );
