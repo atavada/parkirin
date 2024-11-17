@@ -15,41 +15,41 @@ export const Faq = () => {
 						<Accordion type="single" defaultValue="item-1" collapsible className="w-full">
 							<AccordionItem value="item-1">
 								<AccordionTrigger className="font-bold text-xl hover:no-underline">
-									How can I track my attendant's location?
+									Bagaimana cara melacak lokasi petugas parkir saya?
 								</AccordionTrigger>
 								<AccordionContent className="text-md font-medium text-gray-500">
-									You can track your attendant's location in real-time via the app. After booking is confirmed, you'll
-									see a map displaying your attendant's progress towards your location.
+									Anda dapat melacak lokasi petugas parkir secara real-time melalui aplikasi. Setelah pemesanan
+									terkonfirmasi, Anda akan melihat peta yang menampilkan progres petugas menuju lokasi Anda.
 								</AccordionContent>
 							</AccordionItem>
 
 							<AccordionItem value="item-2">
 								<AccordionTrigger className="font-bold text-xl hover:no-underline">
-									Can I schedule parking services in advance?
+									Apakah saya bisa menjadwalkan layanan parkir sebelumnya?
 								</AccordionTrigger>
 								<AccordionContent className="text-md font-medium text-gray-500">
-									Yes, you can schedule parking services up to 30 days in advance. This is especially useful for events
-									or peak business hours.
+									Ya, Anda dapat menjadwalkan layanan parkir hingga 30 hari sebelumnya. Fitur ini sangat berguna untuk
+									acara atau jam sibuk.
 								</AccordionContent>
 							</AccordionItem>
 
 							<AccordionItem value="item-3">
 								<AccordionTrigger className="font-bold text-xl hover:no-underline">
-									Is there a cancellation fee?
+									Apakah ada biaya pembatalan?
 								</AccordionTrigger>
 								<AccordionContent className="text-md font-medium text-gray-500">
-									Cancellations made more than 24 hours before the scheduled service are free. Late cancellations may
-									incur a small fee.
+									Pembatalan yang dilakukan lebih dari 24 jam sebelum layanan yang dijadwalkan tidak dikenakan biaya.
+									Pembatalan yang terlambat dapat dikenakan biaya kecil.
 								</AccordionContent>
 							</AccordionItem>
 
 							<AccordionItem value="item-4">
 								<AccordionTrigger className="font-bold text-xl hover:no-underline">
-									How can I contact my parking attendant?
+									Bagaimana cara menghubungi petugas parkir saya?
 								</AccordionTrigger>
 								<AccordionContent className="text-md font-medium text-gray-500">
-									Once an attendant is assigned, you can contact them directly through the app's messaging system or
-									call feature.
+									Setelah petugas parkir ditugaskan, Anda dapat menghubungi mereka secara langsung melalui sistem pesan
+									atau fitur panggilan dalam aplikasi.
 								</AccordionContent>
 							</AccordionItem>
 						</Accordion>
