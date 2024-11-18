@@ -1,7 +1,6 @@
-import React from "react";
 import "@/app/styles/loading.css";
 
-const Loading = () => {
+export default function Loading() {
 	return (
 		<div className="flex justify-center items-center min-h-screen">
 			<div className="flex flex-col items-center justify-center">
@@ -9,6 +8,4 @@ const Loading = () => {
 			</div>
 		</div>
 	);
-};
-
-export default Loading;
+}
