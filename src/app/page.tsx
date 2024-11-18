@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 
 import { About } from "@/components/home-page/About";
 import { Demo } from "@/components/home-page/Demo";
@@ -11,31 +10,28 @@ import { Navbar } from "@/components/home-page/Navbar";
 import { useEffect, useState } from "react";
 
 export default function Home() {
+	const [isLoading, setIsLoading] = useState(true);
 
-    const [isLoading, setIsLoading] = useState(true);
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setIsLoading(false);
+		}, 1000);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-          setIsLoading(false);
-        }, 2000);
+		return () => clearTimeout(timer);
+	}, []);
 
-        return () => clearTimeout(timer);
-      }, []);
+	if (isLoading) {
+		return <Loading />;
+	}
 
-      if (isLoading) {
-        return <Loading />;
-      }
-
-
-
-  return (
-    <>
-      <Navbar />
-      <Hero />
-      <About />
-      <Demo />
-      <Faq />
-      <Footer />
-    </>
-  );
+	return (
+		<>
+			<Navbar />
+			<Hero />
+			<About />
+			<Demo />
+			<Faq />
+			<Footer />
+		</>
+	);
 }
