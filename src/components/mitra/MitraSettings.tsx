@@ -20,7 +20,7 @@ export default function MitraSettings() {
 				{/* Left Column */}
 				<div className="space-y-6">
 					<Card>
-						<CardContent className="p-6">
+						<CardContent className="p-6 shadow-md shadow-primary">
 							<div className="aspect-square overflow-hidden rounded-lg mb-4">
 								{!store?.url_image ? (
 									<div className="text-gray-500 flex items-center justify-center w-full h-full border rounded-lg">
@@ -57,7 +57,7 @@ export default function MitraSettings() {
 					</Card>
 
 					<Card>
-						<CardContent className="p-6">
+						<CardContent className="p-6 shadow-md shadow-primary">
 							<h3 className="font-semibold mb-4">Informasi Mitra</h3>
 							<div className="space-y-3">
 								<div className="flex items-center gap-2">
@@ -88,7 +88,7 @@ export default function MitraSettings() {
 				{/* Right Column */}
 				<div className="md:col-span-2 space-y-6">
 					<Card>
-						<CardContent className="p-6">
+						<CardContent className="p-6 shadow-md shadow-primary">
 							<div className="space-y-6">
 								<div>
 									<h3 className="font-semibold mb-4">Informasi Kontak</h3>
@@ -124,10 +124,11 @@ export default function MitraSettings() {
 						</CardContent>
 					</Card>
 					<Card>
-						<CardContent className="p-6">
+						<CardContent className="p-6 shadow-md shadow-primary">
 							<h3 className="font-semibold mb-4">Lokasi Mitra</h3>
 							<div className="aspect-video w-full h-full">
 								<iframe
+									title="Lokasi Mitra"
 									width="100%"
 									height="100%"
 									style={{ border: 0 }}

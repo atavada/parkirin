@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { useEffect, useState } from "react";
