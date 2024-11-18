@@ -30,7 +30,7 @@ export const CurrentMitra = () => {
 			const result = await response.json();
 			const data = result.data;
 			const filteredData = data.filter((mitra: Mitra) => mitra.status === "accepted");
-			console.log(filteredData);
+			// console.log(filteredDat a);
 			setCurrentMitraList(filteredData);
 			setIsLoading(false);
 		} catch (error) {

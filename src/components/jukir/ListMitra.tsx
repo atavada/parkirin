@@ -116,7 +116,7 @@ export const ListMitra = () => {
 						) : (
 							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 								{mitraList.map((mitra) => (
-									<Link key={mitra.id} href={`/jukir/detail-mitra/${mitra.id}`} target="_blank">
+									<Link key={mitra.id} href={`/jukir/detail-mitra/${mitra.id}`}>
 										<Card className="w-[350px] shadow-lg mx-auto">
 											<CardHeader>
 												<CardTitle>{mitra.store_name}</CardTitle>
