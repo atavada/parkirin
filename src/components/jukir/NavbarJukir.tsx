@@ -4,11 +4,12 @@ import { useState } from "react";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { LogOut, MapPin, Menu } from "lucide-react";
+import { Badge, Bell, LogOut, LucideIcon, MapPin, Menu, SquareTerminal } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from "@/app/contexts/AuthContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -17,28 +18,33 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+  
 
 interface RouteProps {
     href: string;
     label: string;
+    icon: LucideIcon;
 }
 
 const routeList: RouteProps[] = [
     {
         href: "/",
         label: "Home",
+        icon: SquareTerminal,
     },
+    // {
+    //     href: "/jukir/apply-form",
+    //     label: "Apply",
+    //     icon: SquareTerminal,
+    // },
     {
-        href: "#about",
-        label: "About Us",
-    },
-    {
-        href: "#services",
-        label: "Services",
+        href: "/jukir/subscription",
+        label: "Subscription",
+        icon: SquareTerminal
     },
 ];
 
-export const Navbar = () => {
+export const NavbarJukir = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const { token, logOut, user } = useAuth();
     const router = useRouter();
@@ -128,36 +134,58 @@ export const Navbar = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger>Profile</DropdownMenuTrigger>
-                                            <DropdownMenuContent>
-                                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                                <DropdownMenuSeparator />
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                        <Button variant="ghost" size="icon" className="relative">
+                                            <Bell className="h-5 w-5" />
+                                            <Badge className="absolute -top-1 -right-1 px-1 min-w-[18px] h-[18px] flex items-center justify-center">2</Badge>
+                                        </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end" className="w-80">
+                                        <DropdownMenuLabel>Notifikasi</DropdownMenuLabel>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>
+                                            <div className="flex flex-col">
+                                            <span className="font-medium">Anda diterima sebagai Jukir</span>
+                                            <span className="text-sm text-gray-500">Lokasi: Parkir Mall Central</span>
+                                            </div>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            <div className="flex flex-col">
+                                            <span className="font-medium">Lamaran Anda ditolak</span>
+                                            <span className="text-sm text-gray-500">Lokasi: Parkir Stasiun Kota</span>
+                                            </div>
+                                        </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger>Profile</DropdownMenuTrigger>
+                                        <DropdownMenuContent>
+                                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                                            <DropdownMenuSeparator />
+                                            <DropdownMenuItem>
+                                                <Link href={"/jukir/apply-form"}>
+                                                Profil Saya
+                                                </Link>
+                                           </DropdownMenuItem>
                                             <DropdownMenuItem>
                                                 <Link href={"/jukir"}>
                                                 Halaman Jukir
                                                 </Link>
+                                           </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <Button
+                                                    variant="ghost"
+                                                    className="w-full flex justify-start items-center gap-2 h-12 text-red-500"
+                                                    onClick={handlelogOut}
+                                                >
+                                                    <LogOut size={10} />
+                                                    Logout
+                                                </Button>
                                             </DropdownMenuItem>
-                                                <DropdownMenuItem>
-                                                    <Button
-                                                        variant="ghost"
-                                                        className="w-full flex justify-start items-center gap-2 h-12 text-red-500"
-                                                        onClick={handlelogOut}
-                                                    >
-                                                        <LogOut size={10} />
-                                                        Logout
-                                                    </Button>
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                        {/* <Button
-                                            variant="ghost"
-                                            className="w-full flex justify-start items-center gap-2 h-12 text-red-500"
-                                            onClick={handlelogOut}
-                                        >
-                                            <LogOut size={20} />
-                                            Logout
-                                        </Button> */}
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
                                     </>
                                 )}
                             </div>

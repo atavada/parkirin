@@ -1,4 +1,4 @@
-import { Facebook, Instagram, MapPin, Phone, Twitter, Youtube } from "lucide-react";
+import { Facebook, Instagram, MapPin, Twitter, Youtube, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,7 +18,7 @@ const FooterSection = ({ title, links }: { title: string; links: { href: string;
 );
 
 const SocialLinks = () => (
-<div className="space-y-4">
+	<div className="space-y-4">
 		<h4 className="text-lg font-semibold text-primary">Find More !</h4>
 		<div className="flex space-x-4">
 			{/* <Link href="#" className="text-gray-600 hover:text-primary" aria-label="Facebook">
@@ -42,10 +42,10 @@ const SocialLinks = () => (
 	</div>
 );
 
-export const Footer = () => {
+export const FooterJukir = () => {
 	return (
 		<>
-			<section className="w-full pb-10 pt-12 md:pt-24 lg:pt-32">
+			<section className="w-full pb-10 pt-12 md:pt-24">
 				<div className="border-t my-10" />
 				<div className="container flex flex-col md:flex-row items-center justify-between mx-auto px-4 md:px-6 space-y-4 md:space-y-0">
 					<div className="flex items-center space-x-2">

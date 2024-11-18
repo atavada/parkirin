@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Footer } from "@/components/home-page/Footer";
+import { FooterJukir } from "@/components/jukir/FooterJukir";
 import { useAuth } from "../contexts/AuthContext";
 import { ListMitra } from "@/components/jukir/ListMitra";
-import { Navbar } from "@/components/home-page/Navbar";
+import { NavbarJukir } from "@/components/jukir/NavbarJukir";
 import Loading from "@/components/home-page/Loading";
 
 interface UserData {
@@ -58,14 +58,14 @@ export default function Page() {
 
 	return (
 		<>
-			<Navbar />
+			<NavbarJukir />
 			<div className="p-10 font-bold text-2xl">
 				<h1>Hallo selamat datang Juru Parkir {user?.name}</h1>
 			</div>
 			<div className="p-10">
 				<ListMitra />
 			</div>
-			<Footer />
+			<FooterJukir />
 		</>
 	);
 }
