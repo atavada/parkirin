@@ -53,7 +53,7 @@ export const SignUpFormJukir = () => {
 					description: (
 						<div>
 							Silahkan{" "}
-							<Link href="/sign-in" className="underline">
+							<Link href="/jukir-sign-in" className="underline">
 								LOGIN
 							</Link>
 						</div>

@@ -6,6 +6,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { CurrentMitra } from "./CurrentMitra";
+import { History, Search } from "lucide-react";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 
 interface Mitra {
 	id: string;
@@ -61,37 +64,57 @@ export const ListMitra = () => {
 	return (
 		<div>
 			<div className="mt-10 mb-5">
-				<Input
-					placeholder="Cari Mitra berdasarkan nama atau alamat..."
-					className="mb-5"
-					value={searchQuery}
-					onChange={(e) => setSearchQuery(e.target.value)}
-					onKeyDown={(e) => {
-						if (e.key === "Enter") handleSearch();
-					}}
-				/>
-				<button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mb-5" onClick={handleSearch}>
-					Cari
-				</button>
+				<div className="flex items-center p-2 bg-white dark:bg-gray-800 rounded-full shadow mb-5">
+					<Input
+						type="text"
+						placeholder="Cari Mitra berdasarkan nama atau alamat..."
+						className="flex-1 text-gray-900 dark:text-white bg-transparent border-none focus:ring-0 rounded-full"
+						value={searchQuery}
+						onChange={(e) => setSearchQuery(e.target.value)}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") handleSearch();
+						}}
+					/>
+					<Button variant="link" onClick={handleSearch}>
+						<Search className="text-gray-500 dark:text-gray-400 w-6 h-6" />
+					</Button>
+				</div>
 
 				{searchQuery ? (
 					<>
-						<h1 className="font-bold text-[2rem] mb-5 mt-5">Hasil Pencarian Mitra</h1>
+						<Separator className="my-12" />
+						<h1 className="font-bold text-[2rem] mb-5 flex items-center gap-3">
+							Hasil Pencarian Mitra <History />
+						</h1>
 						{isLoading ? (
 							<div className="flex justify-center">
 								<p>Loading...</p>
 							</div>
 						) : filteredMitra.length > 0 ? (
-							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
 								{filteredMitra.map((mitra) => (
 									<Link key={mitra.id} href={`/jukir/detail-mitra/${mitra.id}`}>
-										<Card className="w-[350px] shadow-lg mx-auto">
+										<Card className="shadow-lg mx-auto">
 											<CardHeader>
-												<CardTitle>{mitra.store_name}</CardTitle>
-												<CardDescription>{mitra.address}</CardDescription>
+												<div>
+													<CardTitle>{mitra.store_name}</CardTitle>
+													<CardDescription>{mitra.address}</CardDescription>
+													<p className="text-sm">{mitra.working_hours}</p>
+												</div>
+												<div>
+													{mitra.is_hiring ? (
+														<Badge>Sedang Merekrut</Badge>
+													) : (
+														<Badge className="bg-red-500 hover:bg-red-400">Tidak Merekrut</Badge>
+													)}
+												</div>
 											</CardHeader>
 											<CardContent>
-												<img src={mitra.url_image} alt="banner" className="w-full h-[250px] object-cover rounded-xl" />
+												<img
+													src={mitra.url_image}
+													alt={mitra.store_name}
+													className="w-full h-[250px] object-cover rounded-xl"
+												/>
 											</CardContent>
 										</Card>
 									</Link>
@@ -106,24 +129,42 @@ export const ListMitra = () => {
 				) : (
 					<>
 						<Separator className="my-12" />
-						<CurrentMitra />
-						<Separator className="my-12" />
-						<h1 className="font-bold text-[2rem] mb-5">Mitra Lainnya</h1>
+						<div className="mb-12">
+							<h1 className="font-bold text-[2rem] mb-5">Mitra Saat Ini</h1>
+							<CurrentMitra />
+						</div>
+						<h1 className="font-bold text-[2rem] mb-5" id="list-mitra">
+							Mitra Lainnya
+						</h1>
 						{isLoading ? (
-							<div className="flex justify-center">
-								<p>Mohon tunggu...</p>
+							<div className="flex items-center">
+								<p className="text-gray-500">Mohon tunggu...</p>
 							</div>
 						) : (
-							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+							<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
 								{mitraList.map((mitra) => (
 									<Link key={mitra.id} href={`/jukir/detail-mitra/${mitra.id}`}>
-										<Card className="w-[350px] shadow-lg mx-auto">
+										<Card className="shadow-lg mx-auto">
 											<CardHeader>
-												<CardTitle>{mitra.store_name}</CardTitle>
-												<CardDescription>{mitra.address}</CardDescription>
+												<div>
+													<CardTitle>{mitra.store_name}</CardTitle>
+													<CardDescription>{mitra.address}</CardDescription>
+													<p className="text-sm">{mitra.working_hours}</p>
+												</div>
+												<div>
+													{mitra.is_hiring ? (
+														<Badge>Sedang Merekrut</Badge>
+													) : (
+														<Badge className="bg-red-500 hover:bg-red-400">Tidak Merekrut</Badge>
+													)}
+												</div>
 											</CardHeader>
 											<CardContent>
-												<img src={mitra.url_image} alt="banner" className="w-full h-[250px] object-cover rounded-xl" />
+												<img
+													src={mitra.url_image}
+													alt={mitra.store_name}
+													className="w-full h-[250px] object-cover rounded-xl"
+												/>
 											</CardContent>
 										</Card>
 									</Link>
