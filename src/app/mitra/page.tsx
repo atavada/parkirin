@@ -27,10 +27,10 @@ export default function Page() {
                             <BreadcrumbItem className="hidden md:block">
                                 <BreadcrumbLink href="#">Home</BreadcrumbLink>
                             </BreadcrumbItem>
-                            <BreadcrumbSeparator className="hidden md:block" />
-                            <BreadcrumbItem>
+                            {/* <BreadcrumbSeparator className="hidden md:block" /> */}
+                            {/* <BreadcrumbItem>
                                 <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                            </BreadcrumbItem>
+                            </BreadcrumbItem> */}
                         </BreadcrumbList>
                     </Breadcrumb>
                 </div>
