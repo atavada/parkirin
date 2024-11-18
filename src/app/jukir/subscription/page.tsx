@@ -1,14 +1,11 @@
 import { Check, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { NavbarJukir } from "@/components/jukir/NavbarJukir";
-import { FooterJukir } from "@/components/jukir/FooterJukir";
 
 export default function Page() {
 	return (
 		<>
-			<NavbarJukir />
-			<div className="flex items-center justify-center min-h-screen bg-gray-100">
+			<div className="flex items-center justify-center h-[700px]">
 				<Card className="w-full max-w-md">
 					<CardHeader>
 						<CardTitle className="text-2xl font-bold">Premium Subscription</CardTitle>
@@ -46,7 +43,6 @@ export default function Page() {
 					</CardFooter>
 				</Card>
 			</div>
-			<FooterJukir />
 		</>
 	);
 }
