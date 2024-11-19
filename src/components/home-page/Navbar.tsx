@@ -3,11 +3,20 @@
 import { useState } from "react";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { buttonVariants } from "@/components/ui/button";
-import { MapPin, Menu } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { LogOut, MapPin, Menu } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from "@/app/contexts/AuthContext";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface RouteProps {
 	href: string;
@@ -31,21 +40,25 @@ const routeList: RouteProps[] = [
 
 export const Navbar = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const { token } = useAuth();
+	const { token, logOut, user } = useAuth();
+	const router = useRouter();
+
+	const handlelogOut = () => {
+		logOut();
+		router.push("/");
+	};
 
 	return (
 		<>
-			<header className="sticky border-b top-0 z-40 w-full bg-white text-black">
+			<header className="sticky shadow top-0 z-40 w-full bg-white text-black">
 				<NavigationMenu className="mx-auto">
 					<NavigationMenuList className="container h-20 px-4 w-screen flex justify-between">
 						<NavigationMenuItem className="font-bold flex">
 							<Link rel="noreferrer noopener" href="/" className="ml-2 font-bold text-lg flex items-center">
-								{/* Logo */}
 								<Image src="/logo.png" alt="Parkirin Logo" width={70} height={40} />
 							</Link>
 						</NavigationMenuItem>
 						<NavigationMenuItem>
-							{/* mobile */}
 							<span className="flex md:hidden">
 								<Sheet open={isOpen} onOpenChange={setIsOpen}>
 									<SheetTrigger className="md:hidden absolute right-4 top-4 mt-3 mr-5">
@@ -68,15 +81,6 @@ export const Navbar = () => {
 													{label}
 												</Link>
 											))}
-											<Link
-												href="/dashboard"
-												className={buttonVariants({
-													variant: "outline",
-													className: "font-semibold text-black",
-												})}
-											>
-												Dashboard
-											</Link>
 										</nav>
 									</SheetContent>
 								</Sheet>
@@ -124,15 +128,34 @@ export const Navbar = () => {
 									</>
 								) : (
 									<>
-										<Link
-											href="/dashboard"
-											className={buttonVariants({
-												variant: "outline",
-												className: "font-semibold text-gray-500 border-gray-500 rounded-full",
-											})}
-										>
-											Dashboard
-										</Link>
+										<DropdownMenu>
+											<DropdownMenuTrigger>Profile</DropdownMenuTrigger>
+											<DropdownMenuContent>
+												<DropdownMenuLabel>My Account</DropdownMenuLabel>
+												<DropdownMenuSeparator />
+												<DropdownMenuItem>
+													<Link href={"/jukir"}>Halaman Jukir</Link>
+												</DropdownMenuItem>
+												<DropdownMenuItem>
+													<Button
+														variant="ghost"
+														className="w-full flex justify-start items-center gap-2 h-12 text-red-500"
+														onClick={handlelogOut}
+													>
+														<LogOut size={10} />
+														Logout
+													</Button>
+												</DropdownMenuItem>
+											</DropdownMenuContent>
+										</DropdownMenu>
+										{/* <Button
+                                            variant="ghost"
+                                            className="w-full flex justify-start items-center gap-2 h-12 text-red-500"
+                                            onClick={handlelogOut}
+                                        >
+                                            <LogOut size={20} />
+                                            Logout
+                                        </Button> */}
 									</>
 								)}
 							</div>

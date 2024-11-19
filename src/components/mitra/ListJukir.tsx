@@ -16,6 +16,7 @@ import { UserRound } from "lucide-react";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DetailJukir } from "./DetailJukir";
+import { OfferJukir } from "./OfferJukir";
 
 interface Jukir {
 	id: string;
@@ -65,10 +66,10 @@ export const ListJukir = () => {
 
 	return (
 		<>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 				{daftarJukir.map((jukir) => (
 					<Card key={jukir.id} className="w-full">
-						<CardContent className="p-4 flex gap-3">
+						<CardContent className="p-4 flex gap-3 bg-primary">
 							<div>
 								<Avatar className="h-10 w-10">
 									<AvatarFallback>
@@ -77,14 +78,14 @@ export const ListJukir = () => {
 								</Avatar>
 							</div>
 							<div>
-								<h2 className="text-xl font-semibold">{jukir.name}</h2>
-								<p className="text-gray-600">{jukir.phone_number}</p>
+								<h2 className="text-xl font-bold text-white">{jukir.name}</h2>
+								<p className="text-gray-300 font-semibold">{jukir.phone_number}</p>
 							</div>
 						</CardContent>
 						<CardFooter className="flex justify-between p-4">
 							<Dialog>
-								<DialogTrigger>
-									<Button>Detail</Button>
+								<DialogTrigger className={buttonVariants({ variant: "default", className: "rounded-lg" })}>
+									Detail Jukir
 								</DialogTrigger>
 								<DialogContent>
 									<DialogHeader>
@@ -92,7 +93,7 @@ export const ListJukir = () => {
 									</DialogHeader>
 									<DetailJukir jukir_id={jukir.id} />
 									<DialogFooter>
-										<Button className="w-24">Hire</Button>
+										<OfferJukir jukir_id={jukir.id} />
 									</DialogFooter>
 								</DialogContent>
 							</Dialog>

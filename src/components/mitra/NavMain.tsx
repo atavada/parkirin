@@ -15,6 +15,7 @@ import {
 	SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { Fragment } from "react";
+import Link from "next/link";
 
 interface NavMainItem {
 	title: string;
@@ -32,24 +33,23 @@ interface NavMainItem {
 export function NavMain({ items }: { items: NavMainItem[] }) {
 	return (
 		<SidebarGroup>
-			<SidebarGroupLabel>Parkirin Menu</SidebarGroupLabel>
 			<SidebarMenu>
 				{items.map((item) => (
 					<Fragment key={item.title}>
 						{item.type === "link" ? (
 							<SidebarMenuItem>
-								<SidebarMenuButton asChild tooltip={item.title}>
-									<a href={item.url}>
+								<SidebarMenuButton asChild tooltip={item.title} className="hover:bg-primary hover:text-white text-lg">
+									<Link href={item.url}>
 										<item.icon />
 										<span>{item.title}</span>
-									</a>
+									</Link>
 								</SidebarMenuButton>
 							</SidebarMenuItem>
 						) : (
 							<Collapsible asChild defaultOpen>
 								<SidebarMenuItem>
 									<CollapsibleTrigger asChild>
-										<SidebarMenuButton className="w-full justify-between">
+										<SidebarMenuButton className="w-full justify-between hover:bg-primary hover:text-white text-lg">
 											<div className="flex items-center">
 												<item.icon className="mr-2 w-4 h-4" />
 												<span>{item.title}</span>
@@ -60,11 +60,11 @@ export function NavMain({ items }: { items: NavMainItem[] }) {
 									<CollapsibleContent>
 										<SidebarMenuSub>
 											{item.items?.map((subItem) => (
-												<SidebarMenuSubItem key={subItem.title}>
+												<SidebarMenuSubItem key={subItem.title} className="hover:bg-primary hover:text-white">
 													<SidebarMenuSubButton asChild>
-														<a href={subItem.url}>
+														<Link href={subItem.url}>
 															<span>{subItem.title}</span>
-														</a>
+														</Link>
 													</SidebarMenuSubButton>
 												</SidebarMenuSubItem>
 											))}

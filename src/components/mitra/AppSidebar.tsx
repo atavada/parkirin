@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Bot, Command, Frame, LifeBuoy, LucideIcon, Send, Settings2, SquareTerminal } from "lucide-react";
+import { Bot, Command, House, LifeBuoy, LucideIcon, Send, Settings2 } from "lucide-react";
 
 import { NavMain } from "@/components/mitra/NavMain";
 import { NavSecondary } from "@/components/mitra/NavSecondary";
@@ -16,6 +16,7 @@ import {
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useStoreSession } from "@/app/session/UserSession";
+import Link from "next/link";
 
 interface NavMainItem {
 	title: string;
@@ -31,7 +32,7 @@ interface NavMainItem {
 [];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	const { store, loading, error } = useStoreSession();
+	const { store } = useStoreSession();
 
 	const data = {
 		user: {
@@ -43,7 +44,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			{
 				title: "Home",
 				url: "/mitra",
-				icon: SquareTerminal,
+				icon: House,
 				type: "link",
 			},
 			{
@@ -84,17 +85,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarHeader>
 				<SidebarMenu>
 					<SidebarMenuItem>
-						<SidebarMenuButton size="lg" asChild>
-							<a href="#">
-								<div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-									<Command className="size-4" />
-								</div>
-								<div className="grid flex-1 text-left text-sm leading-tight">
-									<span className="truncate font-semibold">{store?.store_name}</span>
-									<span className="truncate text-xs">{store?.working_hours}</span>
-								</div>
-							</a>
-						</SidebarMenuButton>
+						<Link href="#" title="Parkirin" className="text-[2.5rem] text-primary font-bold font-mono mb-7">
+							PARKIRIN
+						</Link>
 					</SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarHeader>

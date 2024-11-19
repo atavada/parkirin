@@ -1,210 +1,162 @@
-// // app/jukir/detail-mitra/[id]/page.tsx
-// "use client"
+"use client";
 
-// import { useEffect, useState } from "react"
-// import Image from "next/image"
-// import { MapPin, Clock, Briefcase, Mail, Phone } from 'lucide-react'
-// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Badge } from "@/components/ui/badge"
-// import { Button } from "@/components/ui/button"
-// import { Navbar } from '@/components/home-page/Navbar'
-// import { Skeleton } from "@/components/ui/skeleton"
-// import { Alert, AlertDescription } from "@/components/ui/alert"
-// import { useParams } from "next/navigation"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { MapPin, Clock, Briefcase, Phone, ChevronLeft, LocateIcon, ArrowRightToLine } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import Loading from "@/components/home-page/Loading";
+import Link from "next/link";
+import { Toaster } from "@/components/ui/toaster";
+import { ApplyMitra } from "@/components/jukir/ApplyMitra";
 
-// interface MitraDetail {
-//     id: string
-//     store_name: string
-//     address: string
-//     imageUrl?: string
-//     is_hiring: boolean
-//     email: string
-//     phone: string
-//     working_hours: string
-// }
-
-// const FALLBACK_IMAGE = "/dummy-image.jpg"
-
-// const MitraDetailSkeleton = () => (
-//     <div className="min-h-screen flex flex-col">
-//         <Navbar />
-//         <main className="flex-grow container mx-auto px-4 py-8">
-//             <article className="max-w-4xl mx-auto">
-//                 <Skeleton className="h-12 w-72 mb-6" />
-//                 <Skeleton className="w-full aspect-video rounded-lg mb-8" />
-//                 <div className="grid gap-6 md:grid-cols-2 mb-8">
-//                     <Card>
-//                         <CardHeader>
-//                             <Skeleton className="h-8 w-40" />
-//                         </CardHeader>
-//                         <CardContent className="space-y-4">
-//                             {[1, 2, 3].map((i) => (
-//                                 <Skeleton key={i} className="h-6 w-full" />
-//                             ))}
-//                         </CardContent>
-//                     </Card>
-//                     <Card>
-//                         <CardHeader>
-//                             <Skeleton className="h-8 w-40" />
-//                         </CardHeader>
-//                         <CardContent className="space-y-4">
-//                             {[1, 2].map((i) => (
-//                                 <Skeleton key={i} className="h-6 w-full" />
-//                             ))}
-//                         </CardContent>
-//                     </Card>
-//                 </div>
-//                 <div className="flex justify-center">
-//                     <Skeleton className="h-12 w-40" />
-//                 </div>
-//             </article>
-//         </main>
-//     </div>
-// )
-
-// const MitraDetailPage = () => {
-//     const params = useParams()
-//     const id = params?.id as string
-
-//     const [mitra, setMitra] = useState<MitraDetail | null>(null)
-//     const [isLoading, setIsLoading] = useState(true)
-//     const [error, setError] = useState<string | null>(null)
-
-//     useEffect(() => {
-//         const fetchMitraDetail = async () => {
-//             if (!id) return
-
-//             try {
-//                 setIsLoading(true)
-//                 setError(null)
-//                 const response = await fetch(`/api/stores/${id}`)
-
-//                 if (!response.ok) {
-//                     throw new Error(`HTTP error! status: ${response.status}`)
-//                 }
-
-//                 const result = await response.json()
-
-//                 if (!result.data) {
-//                     throw new Error("Data tidak ditemukan")
-//                 }
-
-//                 setMitra(result.data)
-//             } catch (error) {
-//                 setError(error instanceof Error ? error.message : "Terjadi kesalahan saat mengambil data")
-//                 console.error("Error fetching mitra detail:", error)
-//             } finally {
-//                 setIsLoading(false)
-//             }
-//         }
-
-//         fetchMitraDetail()
-//     }, [id])
-
-//     if (isLoading) {
-//         return <MitraDetailSkeleton />
-//     }
-
-//     if (error) {
-//         return (
-//             <div className="container mx-auto px-4 py-8">
-//                 <Alert variant="destructive" className="max-w-[350px] mx-auto mt-10">
-//                     <AlertDescription>{error}</AlertDescription>
-//                 </Alert>
-//             </div>
-//         )
-//     }
-
-//     if (!mitra) {
-//         return (
-//             <div className="container mx-auto px-4 py-8">
-//                 <Alert className="max-w-[350px] mx-auto mt-10">
-//                     <AlertDescription>Data mitra tidak ditemukan</AlertDescription>
-//                 </Alert>
-//             </div>
-//         )
-//     }
-
-//     return (
-//         <div className="min-h-screen flex flex-col">
-//             <Navbar />
-
-//             <main className="flex-grow container mx-auto px-4 py-8">
-//                 <article className="max-w-4xl mx-auto">
-//                     <h2 className="text-4xl font-bold mb-6">{mitra.store_name}</h2>
-
-//                     <div className="mb-8 aspect-video relative rounded-lg overflow-hidden">
-//                         <Image
-//                             src={mitra.imageUrl || FALLBACK_IMAGE}
-//                             alt={`${mitra.store_name} banner`}
-//                             fill
-//                             className="object-cover"
-//                             sizes="(max-width: 1024px) 100vw, 1024px"
-//                             priority
-//                         />
-//                     </div>
-
-//                     <div className="grid gap-6 md:grid-cols-2 mb-8">
-//                         <Card>
-//                             <CardHeader>
-//                                 <CardTitle>Informasi Kontak</CardTitle>
-//                             </CardHeader>
-//                             <CardContent className="space-y-4">
-//                                 <div className="flex items-center space-x-2">
-//                                     <MapPin className="h-5 w-5 text-muted-foreground" />
-//                                     <span>{mitra.address}</span>
-//                                 </div>
-//                                 <div className="flex items-center space-x-2">
-//                                     <Mail className="h-5 w-5 text-muted-foreground" />
-//                                     <span>{mitra.email}</span>
-//                                 </div>
-//                                 <div className="flex items-center space-x-2">
-//                                     <Phone className="h-5 w-5 text-muted-foreground" />
-//                                     <span>{mitra.phone}</span>
-//                                 </div>
-//                             </CardContent>
-//                         </Card>
-
-//                         <Card>
-//                             <CardHeader>
-//                                 <CardTitle>Jam Operasional</CardTitle>
-//                             </CardHeader>
-//                             <CardContent className="space-y-4">
-//                                 <div className="flex items-center space-x-2">
-//                                     <Clock className="h-5 w-5 text-muted-foreground" />
-//                                     <span>{mitra.working_hours}</span>
-//                                 </div>
-//                                 <div className="flex items-center space-x-2">
-//                                     <Briefcase className="h-5 w-5 text-muted-foreground" />
-//                                     <Badge variant={mitra.is_hiring ? "default" : "secondary"}>
-//                                         {mitra.is_hiring ? "Sedang Merekrut" : "Tidak Merekrut"}
-//                                     </Badge>
-//                                 </div>
-//                             </CardContent>
-//                         </Card>
-//                     </div>
-
-//                     {mitra.is_hiring && (
-//                         <div className="flex justify-center">
-//                             <Button size="lg">
-//                                 Lamar Sekarang
-//                             </Button>
-//                         </div>
-//                     )}
-//                 </article>
-//             </main>
-
-//             <footer className="bg-muted py-6">
-//                 <div className="container mx-auto px-4 text-center text-muted-foreground">
-//                     <p>&copy; 2024 {mitra.store_name}. Hak Cipta Dilindungi.</p>
-//                 </div>
-//             </footer>
-//         </div>
-//     )
-// }
-
-// export default MitraDetailPage
+interface Mitra {
+	id: string;
+	store_name: string;
+	phone_number: string;
+	address: string;
+	longitude: string;
+	latitude: string;
+	working_hours: string;
+	url_image: string;
+	is_hiring: boolean;
+	is_paid: boolean;
+	created_at: string;
+}
 
 export default function Page() {
-	return <div>detail</div>;
+	const { id } = useParams();
+	const [mitra, setMitra] = useState<Mitra | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const router = useRouter();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			setIsLoading(true);
+			try {
+				const response = await fetch(`/api/store/${id}`);
+				const result = await response.json();
+				setMitra(result.data);
+				setIsLoading(false);
+			} catch (error) {
+				console.error("Error fetching mitra detail:", error);
+			}
+		};
+
+		fetchData();
+	}, [id]);
+
+	if (isLoading) {
+		return <Loading />;
+	}
+
+	const handleBack = () => {
+		router.back();
+	};
+
+	return (
+		<>
+			<div className="mt-10 flex items-center">
+				<Button variant="ghost" onClick={handleBack}>
+					<ChevronLeft className="h-6 w-6" />
+					Kembali
+				</Button>
+			</div>
+			<div className="md:p-12 space-y-8">
+				<h2 className="text-4xl font-bold mb-6">{mitra?.store_name}</h2>
+				<div className="grid grid-cols-1 md:grid-cols-3 md:gap-8 md:space-y-0 space-y-8">
+					<div className="col-span-2 space-y-8">
+						<Card>
+							<CardContent className="p-6">
+								<div className=" overflow-hidden rounded-lg">
+									<img
+										src={mitra?.url_image}
+										alt={mitra?.store_name}
+										className="w-full max-h-[500px] object-cover rounded-lg shadow"
+									/>
+								</div>
+							</CardContent>
+						</Card>
+						<Card>
+							<CardContent className="p-6">
+								<div className="aspect-video w-full h-full">
+									<iframe
+										src={`https://maps.google.com/maps?q=${mitra?.latitude},${mitra?.longitude}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+										title="Google Maps"
+										width="100%"
+										height="100%"
+										style={{ border: 0 }}
+										loading="lazy"
+										allowFullScreen
+									></iframe>
+								</div>
+							</CardContent>
+							<CardFooter>
+								<Link
+									href={`https://www.google.com/maps/search/?api=1&query=${mitra?.latitude},${mitra?.longitude}`}
+									target="_blank"
+									rel="noreferrer"
+									className="flex items-center space-x-2 text-primary hover:underline underline-offset-4"
+								>
+									<LocateIcon className="h-5 w-5" />
+									<span>Buka di Google Maps</span>
+								</Link>
+							</CardFooter>
+						</Card>
+					</div>
+					<div className="space-y-8">
+						<Card>
+							<CardHeader>
+								<CardTitle>Informasi Kontak</CardTitle>
+							</CardHeader>
+							<CardContent className="space-y-4">
+								<div className="flex items-center space-x-2">
+									<MapPin className="h-5 w-5 text-muted-foreground" />
+									<span>{mitra?.address}</span>
+								</div>
+								<div className="flex items-center space-x-2">
+									<Phone className="h-5 w-5 text-muted-foreground" />
+									<span>{mitra?.phone_number}</span>
+								</div>
+								<div className="flex items-center space-x-2">
+									<ArrowRightToLine className="h-5 w-5 text-muted-foreground" />
+									<span>
+										Bergabung,{" "}
+										{mitra?.created_at &&
+											new Date(mitra.created_at).toLocaleDateString("id-ID", {
+												day: "numeric",
+												month: "long",
+												year: "numeric",
+											})}
+									</span>
+								</div>
+							</CardContent>
+						</Card>
+						<Card>
+							<CardHeader>
+								<CardTitle>Jam Operasional</CardTitle>
+							</CardHeader>
+							<CardContent className="space-y-4">
+								<div className="flex items-center space-x-2">
+									<Clock className="h-5 w-5 text-muted-foreground" />
+									<span>{mitra?.working_hours}</span>
+								</div>
+								<div className="flex items-center space-x-2">
+									<Briefcase className="h-5 w-5 text-muted-foreground" />
+									<Badge variant={mitra?.is_hiring ? "default" : "secondary"}>
+										{mitra?.is_hiring ? "Sedang Merekrut" : "Tidak Merekrut"}
+									</Badge>
+								</div>
+							</CardContent>
+						</Card>
+						<div className="flex justify-center">
+							<ApplyMitra id={id} />
+						</div>
+					</div>
+				</div>
+			</div>
+			<Toaster />
+		</>
+	);
 }

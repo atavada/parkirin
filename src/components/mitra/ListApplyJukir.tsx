@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { useEffect, useState } from "react";
@@ -66,9 +66,9 @@ export const ListApplyJukir = () => {
 					<TabsTrigger value="history">History</TabsTrigger>
 				</TabsList>
 				<TabsContent value="listJukir">
-					{daftarJukir.map((jukir) =>
-						jukir.status === "sent" ? (
-							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+						{daftarJukir.map((jukir) =>
+							jukir.status === "sent" ? (
 								<Card key={jukir.id} className="w-full">
 									<CardContent className="p-4 flex gap-3">
 										<div>
@@ -108,18 +108,18 @@ export const ListApplyJukir = () => {
 										</Dialog>
 									</CardFooter>
 								</Card>
-							</div>
-						) : (
-							<>
-								<div className="text-gray-500 mt-4">Tidak ada data.</div>
-							</>
-						)
-					)}
+							) : (
+								<div key={jukir.id} className="text-gray-500 mt-4">
+									Tidak ada data.
+								</div>
+							)
+						)}
+					</div>
 				</TabsContent>
 				<TabsContent value="history">
-					{daftarJukir.map((jukir) =>
-						jukir.status !== "sent" ? (
-							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+						{daftarJukir.map((jukir) =>
+							jukir.status !== "sent" ? (
 								<Card key={jukir.id} className="w-full pb-2">
 									<CardContent className="p-4 flex items-center gap-3">
 										<div>
@@ -131,17 +131,29 @@ export const ListApplyJukir = () => {
 										</div>
 										<div>
 											<h2 className="text-xl font-semibold">{jukir.user_name}</h2>
-											<Badge>{jukir.status}</Badge>
+											{jukir.status === "accepted" ? (
+												<>
+													<Badge variant="default" className="bg-green-500 hover:bg-green-500">
+														{jukir.status}
+													</Badge>
+												</>
+											) : (
+												<>
+													<Badge variant="default" className="bg-red-500 hover:bg-red-500">
+														{jukir.status}
+													</Badge>
+												</>
+											)}
 										</div>
 									</CardContent>
 								</Card>
-							</div>
-						) : (
-							<>
-								<div className="text-gray-500 mt-4">Tidak ada data.</div>
-							</>
-						)
-					)}
+							) : (
+								<div key={jukir.id} className="text-gray-500 mt-4">
+									Tidak ada data.
+								</div>
+							)
+						)}
+					</div>
 				</TabsContent>
 			</Tabs>
 
