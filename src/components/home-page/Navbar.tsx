@@ -4,7 +4,7 @@ import { useState } from "react";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { LogOut, MapPin, Menu } from "lucide-react";
+import { House, LogOut, MapPin, Menu, User, UserRound } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from "@/app/contexts/AuthContext";
 import Image from "next/image";
@@ -12,11 +12,13 @@ import { useRouter } from "next/navigation";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
+	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useUserSession } from "@/app/session/UserSession";
 
 interface RouteProps {
 	href: string;
@@ -40,7 +42,8 @@ const routeList: RouteProps[] = [
 
 export const Navbar = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const { token, logOut, user } = useAuth();
+	const { token, logOut } = useAuth();
+	const { user } = useUserSession();
 	const router = useRouter();
 
 	const handlelogOut = () => {
@@ -81,6 +84,39 @@ export const Navbar = () => {
 													{label}
 												</Link>
 											))}
+											{!token ? (
+												<>
+													<Link
+														href="/jukir/sign-in"
+														className={buttonVariants({
+															variant: "ghost",
+															className: "font-semibold",
+														})}
+													>
+														Sign in Jukir
+													</Link>
+													<Link
+														href="/mitra/sign-in"
+														className={buttonVariants({
+															variant: "outline",
+															className: "font-semibold text-black",
+														})}
+													>
+														Sign in Mitra
+													</Link>
+												</>
+											) : (
+												<>
+													<Button
+														variant="ghost"
+														className="w-full flex justify-center items-center gap-2 h-12 text-red-500"
+														onClick={handlelogOut}
+													>
+														<LogOut size={10} />
+														Logout
+													</Button>
+												</>
+											)}
 										</nav>
 									</SheetContent>
 								</Sheet>
@@ -129,33 +165,55 @@ export const Navbar = () => {
 								) : (
 									<>
 										<DropdownMenu>
-											<DropdownMenuTrigger>Profile</DropdownMenuTrigger>
-											<DropdownMenuContent>
-												<DropdownMenuLabel>My Account</DropdownMenuLabel>
+											<DropdownMenuTrigger
+												className={buttonVariants({
+													variant: "ghost",
+													size: "icon",
+													className: "border rounded-[100rem]",
+												})}
+											>
+												<UserRound className="w-4 h-4" />
+											</DropdownMenuTrigger>
+											<DropdownMenuContent className="w-56">
+												<DropdownMenuLabel>
+													<p>{user?.name}</p>
+													<p>{user?.phone_number}</p>
+												</DropdownMenuLabel>
 												<DropdownMenuSeparator />
-												<DropdownMenuItem>
-													<Link href={"/jukir"}>Halaman Jukir</Link>
-												</DropdownMenuItem>
-												<DropdownMenuItem>
-													<Button
-														variant="ghost"
-														className="w-full flex justify-start items-center gap-2 h-12 text-red-500"
-														onClick={handlelogOut}
-													>
-														<LogOut size={10} />
-														Logout
-													</Button>
-												</DropdownMenuItem>
+												<DropdownMenuGroup>
+													{user?.role === "jukir" ? (
+														<DropdownMenuItem>
+															<User />
+															<Link href="/jukir/apply-form">Profil Saya</Link>
+														</DropdownMenuItem>
+													) : (
+														<DropdownMenuItem>
+															<User />
+															<Link href="/mitra/settings">Profil</Link>
+														</DropdownMenuItem>
+													)}
+
+													{user?.role === "tukang" ? (
+														<DropdownMenuItem>
+															<House />
+															<Link href="/jukir">Halaman Jukir</Link>
+														</DropdownMenuItem>
+													) : (
+														<DropdownMenuItem>
+															<House />
+															<Link href="/mitra">Halaman Mitra</Link>
+														</DropdownMenuItem>
+													)}
+												</DropdownMenuGroup>
+												<DropdownMenuSeparator />
+												<DropdownMenuGroup>
+													<DropdownMenuItem className="text-red-500 hover:text-red-500" onClick={handlelogOut}>
+														<LogOut />
+														<span>Log out</span>
+													</DropdownMenuItem>
+												</DropdownMenuGroup>
 											</DropdownMenuContent>
 										</DropdownMenu>
-										{/* <Button
-                                            variant="ghost"
-                                            className="w-full flex justify-start items-center gap-2 h-12 text-red-500"
-                                            onClick={handlelogOut}
-                                        >
-                                            <LogOut size={20} />
-                                            Logout
-                                        </Button> */}
 									</>
 								)}
 							</div>

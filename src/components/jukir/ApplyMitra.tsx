@@ -7,43 +7,64 @@ import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Ban, BanIcon } from "lucide-react";
 import { CancelApply } from "./CancelApply";
+import { UpdateApplyStatus } from "./UpdateApplyStatus";
+
+interface Mitra {
+	id: string;
+	store_id: string;
+	store_name: string;
+	address: string;
+	status: string;
+	working_hours: string;
+	is_direct_hiring: boolean;
+	url_image: string;
+}
 
 export const ApplyMitra = ({ id }: { id: any }) => {
 	const { token } = useAuth();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+
 	const [applicationStatus, setApplicationStatus] = useState<string | null>(null);
-	const [applications, setApplications] = useState<any[]>([]);
+	const [applications, setApplications] = useState<Mitra[]>([]);
 	const [applicationId, setApplicationId] = useState<string | null>(null);
 	const [applicationIsDirectHire, setApplicationIsDirectHire] = useState<boolean>(false);
 
-	const fetchData = async () => {
+	const fetchData = async (isDirectHire: boolean) => {
 		setIsLoading(true);
 		try {
-			const response = await fetch("/api/application/user", {
+			const response = await fetch(`/api/application/user?is_direct_hire=${isDirectHire}`, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			});
 			const result = await response.json();
-			setApplications(result.data);
 			setIsLoading(false);
+			return result.data;
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
 	};
 
 	useEffect(() => {
-		fetchData();
+		const fetchAllData = async () => {
+			setApplications([]);
+			const directHireData = await fetchData(true);
+			const nonDirectHireData = await fetchData(false);
+			setApplications([...directHireData, ...nonDirectHireData]);
+		};
+		fetchAllData();
 	}, [id]);
 
 	useEffect(() => {
 		const application = applications.find((data: any) => {
 			return data.store_id === Number(id);
 		});
+		console.log(application);
 		setApplicationStatus(application ? application.status : null);
 		setApplicationId(application ? application.id : null);
-		setApplicationIsDirectHire(application ? application.is_direct_hire : false);
+		setApplicationIsDirectHire(application ? application.is_direct_hiring : false);
+		console.log(applicationIsDirectHire);
 	}, [applications, id]);
 
 	const handleApply = async () => {
@@ -111,12 +132,7 @@ export const ApplyMitra = ({ id }: { id: any }) => {
 				)
 			) : (
 				<>
-					<Button variant="default" disabled className="w-full rounded-xl">
-						Terima Rekrut
-					</Button>
-					<Button variant="default" disabled className="w-full rounded-xl">
-						Tolak Rekrut
-					</Button>
+					<UpdateApplyStatus application_id={applicationId || ""} />
 				</>
 			)}
 		</>

@@ -123,7 +123,7 @@ export const NavbarJukir = () => {
 								{/* nav-jukir */}
 								<DropdownMenu>
 									<DropdownMenuTrigger
-										className={buttonVariants({ variant: "ghost", size: "icon", className: "border rounded-[100%]" })}
+										className={buttonVariants({ variant: "ghost", size: "icon", className: "border rounded-[100rem]" })}
 									>
 										<UserRound className="w-4 h-4" />
 									</DropdownMenuTrigger>
