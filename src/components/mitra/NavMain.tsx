@@ -15,6 +15,7 @@ import {
 	SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { Fragment } from "react";
+import Link from "next/link";
 
 interface NavMainItem {
 	title: string;
@@ -38,10 +39,10 @@ export function NavMain({ items }: { items: NavMainItem[] }) {
 						{item.type === "link" ? (
 							<SidebarMenuItem>
 								<SidebarMenuButton asChild tooltip={item.title} className="hover:bg-primary hover:text-white text-lg">
-									<a href={item.url}>
+									<Link href={item.url}>
 										<item.icon />
 										<span>{item.title}</span>
-									</a>
+									</Link>
 								</SidebarMenuButton>
 							</SidebarMenuItem>
 						) : (
@@ -61,9 +62,9 @@ export function NavMain({ items }: { items: NavMainItem[] }) {
 											{item.items?.map((subItem) => (
 												<SidebarMenuSubItem key={subItem.title} className="hover:bg-primary hover:text-white">
 													<SidebarMenuSubButton asChild>
-														<a href={subItem.url}>
+														<Link href={subItem.url}>
 															<span>{subItem.title}</span>
-														</a>
+														</Link>
 													</SidebarMenuSubButton>
 												</SidebarMenuSubItem>
 											))}

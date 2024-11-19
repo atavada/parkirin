@@ -16,6 +16,7 @@ import {
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useStoreSession } from "@/app/session/UserSession";
+import Link from "next/link";
 
 interface NavMainItem {
 	title: string;
@@ -84,11 +85,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarHeader>
 				<SidebarMenu>
 					<SidebarMenuItem>
-						<SidebarMenuButton asChild>
-							<a href="#" title="Store Image" className="text-[2.5rem] text-primary font-bold p-5 font-mono mb-7">
-								PARKIRIN
-							</a>
-						</SidebarMenuButton>
+						<Link href="#" title="Parkirin" className="text-[2.5rem] text-primary font-bold font-mono mb-7">
+							PARKIRIN
+						</Link>
 					</SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarHeader>

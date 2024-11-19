@@ -16,6 +16,7 @@ import { UserRound } from "lucide-react";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DetailJukir } from "./DetailJukir";
+import { OfferJukir } from "./OfferJukir";
 
 interface Jukir {
 	id: string;
@@ -83,16 +84,16 @@ export const ListJukir = () => {
 						</CardContent>
 						<CardFooter className="flex justify-between p-4">
 							<Dialog>
-								<DialogTrigger>
-									<Button className="">Detail Jukir</Button>
+								<DialogTrigger className={buttonVariants({ variant: "default", className: "rounded-lg" })}>
+									Detail Jukir
 								</DialogTrigger>
 								<DialogContent>
 									<DialogHeader>
 										<DialogTitle>Detail Jukir {jukir.name}</DialogTitle>
 									</DialogHeader>
-									<DetailJukir jukir_id={jukir.id}/>
+									<DetailJukir jukir_id={jukir.id} />
 									<DialogFooter>
-										<Button className="w-24">Hire</Button>
+										<OfferJukir jukir_id={jukir.id} />
 									</DialogFooter>
 								</DialogContent>
 							</Dialog>

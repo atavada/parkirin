@@ -6,6 +6,7 @@ import { MapPin, Phone, Clock, Calendar, Upload } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { useStoreSession } from "@/app/session/UserSession";
 import Link from "next/link";
+import { UpdateHiringStatus } from "./UpdateHiringStatus";
 
 export default function MitraSettings() {
 	const { store, loading, error } = useStoreSession();
@@ -105,19 +106,24 @@ export default function MitraSettings() {
 										<div className="flex items-center gap-2">
 											<Badge
 												variant="default"
-												className={store?.is_hiring ? "bg-primary text-white" : "bg-red-500 text-white"}
+												className={
+													store?.is_hiring ? "bg-primary text-white" : "bg-red-500 hover:bg-red-500 text-white"
+												}
 											>
 												{store?.is_hiring ? "Hiring" : "Not Hiring"}
 											</Badge>
 										</div>
-										<div className="flex items-center gap-2">
+										{/* Handle Change */}
+										<UpdateHiringStatus is_hiring={store?.is_hiring} />
+
+										{/* <div className="flex items-center gap-2">
 											<Badge
 												variant="default"
 												className={store?.is_paid ? "bg-primary text-white" : "bg-red-500 text-white"}
 											>
 												{store?.is_paid ? "Paid" : "Not Paid"}
 											</Badge>
-										</div>
+										</div> */}
 									</div>
 								</div>
 							</div>
